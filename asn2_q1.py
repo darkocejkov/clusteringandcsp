@@ -12,7 +12,7 @@ def get_data(percent):
     #data array holds values of co-ordinates in .csv files
     data = []
     #csv_reader used to make gathering data from csv files easy via reader object
-    with open('datasetQ1.csv', 'r') as obj:
+    with open('./dataset/datasetQ1.csv', 'r') as obj:
         csv_reader = reader(obj)
         line = next(csv_reader)#skip header line
         if line != None:#if file is not empty
