@@ -6,8 +6,6 @@ import matplotlib.pyplot as mpt
 mpt.xlabel('x1')
 mpt.ylabel('x2')
 
-
-
 def get_data(percent):
     #data array holds values of co-ordinates in .csv files
     data = []
