@@ -1,5 +1,6 @@
 from csv import reader 
 from math import sqrt
+import random
 import matplotlib.pyplot as mpt
 
 #matplotlib labels axes as x1 and x2 values
@@ -16,16 +17,24 @@ def get_data(percent):
         if line != None:#if file is not empty
             for row in csv_reader:
                 if row[2] == '1':#if y is 1, plot as red circle
-                    mpt.plot([row[0]], [row[1]], 'ro')
+                    mpt.plot([float(row[0])], [float(row[1])], 'ro')
                 else:#otherwise it is 0, plot as blue circle
-                    mpt.plot([row[0]], [row[1]], 'bo')
+                    mpt.plot([float(row[0])], [float(row[1])], 'bo')
+
+                row[0] = float(row[0])
+                row[1] = float(row[1])
                 data.append(row)#after plotting, add the vaalue to data
     obj.close()
     #now we use length to cut off a percentage of the data
     length = len(data)
-    length = int(length * (percent * 0.01))
-    data = data[:length]
+    length = int(length * ((100-percent) * 0.01))
+
+    #randomly remove elements until we have a percentage of the data
+    for i in range(length):
+        data.remove(random.choice(data))
+
     data = sorted(data)
+    mpt.axis([0,4,0,4])
     mpt.show()
     mpt.clf()
     return data
@@ -60,9 +69,9 @@ def fnKNN(data, p, k):
             blues+=1
 
     if reds > blues:
-        point  = [str(p[0]), str(p[1]), '1']
+        point  = [float(p[0]), float(p[1]), '1']
     else:
-        point  = [str(p[0]), str(p[1]), '0']
+        point  = [float(p[0]), float(p[1]), '0']
     data.append(point)
     data = sorted(data)#sort array after entering new point
     return data
@@ -83,6 +92,7 @@ def main():
         else:
             mpt.plot([row[0]], [row[1]], 'bo')
 
+    mpt.axis([0,4,0,4])
     mpt.show()
 
 if __name__ == '__main__': 
